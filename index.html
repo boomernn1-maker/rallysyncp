@@ -4,17 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sync Arrive</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: #111118;
-    --border: #1e1e2e;
-    --accent: #00e5a0;
-    --accent2: #ff4d6d;
-    --text: #e8e8f0;
-    --muted: #555570;
-    --card: #13131f;
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --border: #e2e5eb;
+    --border-strong: #c8cdd8;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent2: #ef4444;
+    --text: #111827;
+    --muted: #6b7280;
+    --card: #ffffff;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,47 +26,46 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Sans', sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px 80px;
+    padding: 48px 20px 80px;
   }
 
-  /* Background grid */
+  /* Subtle dot grid background */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image:
-      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
+    background-image: radial-gradient(circle, #c8cdd8 1px, transparent 1px);
+    background-size: 28px 28px;
     pointer-events: none;
     z-index: 0;
+    opacity: 0.45;
   }
 
   .container {
     width: 100%;
-    max-width: 700px;
+    max-width: 680px;
     position: relative;
     z-index: 1;
   }
 
   header {
-    margin-bottom: 48px;
+    margin-bottom: 40px;
     text-align: left;
   }
 
   .logo {
-    font-family: 'Syne', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.25em;
+    font-weight: 600;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -80,52 +83,55 @@
 
   @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
+    50% { opacity: 0.3; transform: scale(0.6); }
   }
 
   h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(28px, 6vw, 48px);
-    font-weight: 800;
-    line-height: 1.05;
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 600;
+    line-height: 1.15;
     color: var(--text);
     letter-spacing: -0.02em;
   }
 
-  h1 span {
-    color: var(--accent);
-  }
+  h1 span { color: var(--accent); }
 
   .subtitle {
-    margin-top: 10px;
-    font-size: 11px;
+    margin-top: 8px;
+    font-size: 13px;
     color: var(--muted);
-    letter-spacing: 0.05em;
   }
 
   .clock {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
     color: var(--muted);
-    margin-top: 6px;
+    margin-top: 8px;
+    background: var(--surface);
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
   }
 
   .section {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 24px;
-    margin-bottom: 16px;
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
   }
 
   .section-label {
-    font-size: 9px;
-    letter-spacing: 0.2em;
+    font-size: 10px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 16px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
+    margin-bottom: 14px;
+    font-weight: 600;
   }
 
   .player-row {
@@ -134,11 +140,11 @@
     gap: 8px;
     align-items: center;
     margin-bottom: 8px;
-    animation: slideIn 0.2s ease;
+    animation: slideIn 0.18s ease;
   }
 
   @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-6px); }
+    from { opacity: 0; transform: translateY(-4px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
@@ -146,22 +152,23 @@
     background: var(--bg);
     border: 1px solid var(--border);
     color: var(--text);
-    font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    padding: 10px 12px;
-    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 9px 12px;
+    border-radius: 8px;
     width: 100%;
     outline: none;
-    transition: border-color 0.15s;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
 
   input[type="text"]:focus, input[type="number"]:focus {
     border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    background: #fff;
   }
 
-  input::placeholder { color: var(--muted); }
+  input::placeholder { color: #b0b7c3; }
 
-  /* Remove number input arrows */
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
   input[type="number"] { -moz-appearance: textfield; }
@@ -173,33 +180,32 @@
     font-size: 16px;
     width: 36px;
     height: 36px;
-    border-radius: 2px;
+    border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.15s;
-    font-family: monospace;
   }
 
   .btn-icon:hover {
     border-color: var(--accent2);
     color: var(--accent2);
-    background: rgba(255,77,109,0.05);
+    background: #fef2f2;
   }
 
   .add-player-btn {
     background: transparent;
-    border: 1px dashed var(--border);
+    border: 1.5px dashed var(--border-strong);
     color: var(--muted);
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    padding: 10px;
-    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 9px;
+    border-radius: 8px;
     cursor: pointer;
     width: 100%;
     text-align: center;
-    letter-spacing: 0.1em;
     transition: all 0.15s;
     margin-top: 8px;
   }
@@ -207,23 +213,12 @@
   .add-player-btn:hover {
     border-color: var(--accent);
     color: var(--accent);
-    background: rgba(0,229,160,0.04);
-  }
-
-  .paste-area {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-
-  .paste-area input {
-    flex: 1;
+    background: #eff6ff;
   }
 
   .hint {
-    font-size: 10px;
+    font-size: 11px;
     color: var(--muted);
-    letter-spacing: 0.03em;
     margin-top: 6px;
   }
 
@@ -231,56 +226,54 @@
     background: var(--bg);
     border: 1px solid var(--border);
     padding: 1px 5px;
-    border-radius: 2px;
+    border-radius: 4px;
     color: var(--accent);
-    font-family: 'Space Mono', monospace;
+    font-family: 'DM Mono', monospace;
     font-size: 10px;
   }
 
   .btn-row {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
   }
 
   .btn {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 11px 20px;
-    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
     cursor: pointer;
-    border: 1px solid;
+    border: 1px solid transparent;
     transition: all 0.15s;
   }
 
   .btn-primary {
     background: var(--accent);
     border-color: var(--accent);
-    color: #000;
-    font-weight: 700;
+    color: #fff;
   }
 
   .btn-primary:hover {
-    background: #00ffb3;
-    border-color: #00ffb3;
-    box-shadow: 0 0 20px rgba(0,229,160,0.3);
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    box-shadow: 0 4px 12px rgba(37,99,235,0.25);
   }
 
   .btn-secondary {
-    background: transparent;
+    background: var(--surface);
     border-color: var(--border);
-    color: var(--muted);
-  }
-
-  .btn-secondary:hover {
-    border-color: var(--muted);
     color: var(--text);
   }
 
+  .btn-secondary:hover {
+    border-color: var(--border-strong);
+    background: var(--bg);
+  }
+
   .btn-danger {
-    background: transparent;
+    background: var(--surface);
     border-color: var(--border);
     color: var(--muted);
   }
@@ -288,38 +281,37 @@
   .btn-danger:hover {
     border-color: var(--accent2);
     color: var(--accent2);
+    background: #fef2f2;
   }
 
   .result-section {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 24px;
+    border-radius: 12px;
+    padding: 22px 24px;
     display: none;
+    box-shadow: var(--shadow-md);
   }
 
   .result-section.visible {
     display: block;
-    animation: fadeUp 0.3s ease;
+    animation: fadeUp 0.25s ease;
   }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
   .result-note {
-    font-size: 10px;
+    font-size: 12px;
     color: var(--muted);
     margin-bottom: 16px;
-    letter-spacing: 0.03em;
-    padding-bottom: 12px;
+    padding-bottom: 14px;
     border-bottom: 1px solid var(--border);
   }
 
-  .result-note span {
-    color: var(--accent);
-  }
+  .result-note span { color: var(--accent); font-weight: 600; }
 
   .result-table {
     width: 100%;
@@ -327,66 +319,49 @@
   }
 
   .result-table th {
-    font-size: 9px;
-    letter-spacing: 0.2em;
+    font-size: 10px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
+    font-weight: 600;
     text-align: left;
     padding: 6px 10px;
     border-bottom: 1px solid var(--border);
   }
 
   .result-table td {
-    font-size: 12px;
+    font-size: 13px;
     padding: 10px 10px;
-    border-bottom: 1px solid rgba(30,30,46,0.5);
-    transition: background 0.1s;
+    border-bottom: 1px solid var(--bg);
   }
 
-  .result-table tr:hover td {
-    background: rgba(0,229,160,0.03);
-  }
-
-  .result-table tr.anchor td {
-    color: var(--accent);
-  }
-
-  .result-table tr.anchor td:first-child::after {
-    content: ' ◀ T0';
-    font-size: 9px;
-    color: var(--accent);
-    opacity: 0.6;
-  }
+  .result-table tr:hover td { background: #f8faff; }
+  .result-table tr.anchor td { color: var(--accent); }
 
   .delay-chip {
     display: inline-block;
-    background: rgba(0,229,160,0.1);
+    background: #eff6ff;
     color: var(--accent);
-    border-radius: 2px;
+    border-radius: 6px;
     padding: 2px 8px;
     font-size: 11px;
+    font-weight: 600;
   }
 
   .delay-chip.zero {
-    background: rgba(255,77,109,0.1);
+    background: #fef2f2;
     color: var(--accent2);
-  }
-
-  .copy-result-btn {
-    margin-top: 16px;
-    width: 100%;
   }
 
   .error {
     color: var(--accent2);
-    font-size: 11px;
-    padding: 10px;
-    background: rgba(255,77,109,0.07);
-    border: 1px solid rgba(255,77,109,0.2);
-    border-radius: 2px;
+    font-size: 12px;
+    padding: 10px 12px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
     display: none;
+    margin-bottom: 12px;
   }
 
   .error.visible { display: block; }
@@ -396,18 +371,18 @@
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%) translateY(20px);
-    background: var(--accent);
-    color: #000;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
+    background: var(--text);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
     padding: 10px 20px;
-    border-radius: 2px;
+    border-radius: 8px;
     opacity: 0;
-    transition: all 0.25s ease;
+    transition: all 0.22s ease;
     pointer-events: none;
     z-index: 100;
-    font-weight: 700;
+    box-shadow: var(--shadow-md);
   }
 
   .copied-toast.show {
@@ -420,15 +395,18 @@
 
 <div class="container">
   <header>
-    <div class="logo">Sync Arrive</div>
-    <h1>Simultaneous<br><span>Arrival</span> Calculator</h1>
-    <p class="subtitle">Everyone departs at different times — everyone arrives together.</p>
+    <div class="logo">[PRV] LightOfTheWorld - 2231</div>
+    <h1>Rally Sync Calculator</h1>
     <div class="clock" id="clock">--:--:-- UTC</div>
   </header>
 
   <!-- Players Section -->
   <div class="section">
-    <div class="section-label">Players + March Time + Troop Ratio</div>
+    <div style="display:grid;grid-template-columns:6fr 60px 100px 36px;gap:8px;margin-bottom:10px;padding-right:44px;">
+      <div class="section-label" style="margin-bottom:0;text-align:center;">Player</div>
+      <div class="section-label" style="margin-bottom:0;text-align:center;">March</div>
+      <div class="section-label" style="margin-bottom:0;text-align:center;">Ratio</div>
+    </div>
     <div id="players-list"></div>
     <button class="add-player-btn" onclick="addPlayer()">+ Add Player</button>
   </div>
@@ -460,7 +438,7 @@
     <div class="result-note" id="result-note"></div>
 
     <!-- Copyable plain-text block -->
-    <div style="background:var(--bg);border:1px solid var(--border);border-radius:2px;padding:16px;margin-bottom:16px;white-space:pre;font-size:13px;line-height:1.9;letter-spacing:0.03em;" id="result-plaintext"></div>
+    <div style="background:#f8faff;border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:16px;white-space:pre;font-family:'DM Mono',monospace;font-size:13px;line-height:2;color:var(--text);" id="result-plaintext"></div>
 
     <table class="result-table">
       <thead>
@@ -503,7 +481,7 @@
     row.className = 'player-row';
     row.id = `player-${id}`;
     row.innerHTML = `
-      <input type="text" placeholder="Name (e.g. Y2)" value="${name}" id="name-${id}">
+      <input type="text" placeholder="Name" value="${name}" id="name-${id}">
       <input type="number" placeholder="Secs" value="${seconds}" id="sec-${id}" min="0">
       <input type="text" placeholder="Ratio" value="${ratio}" id="ratio-${id}">
       <button class="btn-icon" onclick="removePlayer(${id})">×</button>
