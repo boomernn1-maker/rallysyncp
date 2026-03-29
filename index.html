@@ -531,24 +531,27 @@
   function calculate() {
     hideError();
     const rows = document.querySelectorAll('.player-row');
-    if (rows.length < 2) {
-      showError('Add at least 2 players.');
-      return;
-    }
 
     const offset = parseInt(document.getElementById('offset-input').value) || 0;
 
     const players = [];
     for (let row of rows) {
       const id = row.id.split('-')[1];
-      const name = document.getElementById(`name-${id}`).value.trim() || `P${id}`;
+      const name = document.getElementById(`name-${id}`).value.trim();
       const secs = parseInt(document.getElementById(`sec-${id}`).value);
       const ratio = document.getElementById(`ratio-${id}`).value.trim();
+      // Skip empty rows
+      if (!name && isNaN(secs)) continue;
       if (isNaN(secs) || secs < 0) {
-        showError(`Invalid seconds for "${name}".`);
+        showError(`Invalid seconds for "${name || 'a player'}".`);
         return;
       }
-      players.push({ name, secs, ratio });
+      players.push({ name: name || `P${id}`, secs, ratio });
+    }
+
+    if (players.length < 1) {
+      showError('Add at least one player.');
+      return;
     }
 
     const maxSecs = Math.max(...players.map(p => p.secs));
@@ -631,8 +634,8 @@
     setTimeout(() => t.classList.remove('show'), 1800);
   }
 
-  // Init with 3 blank players
-  addPlayer(); addPlayer(); addPlayer();
+  // Init with 2 blank players
+  addPlayer(); addPlayer();
 </script>
 </body>
-</html>
+      </html>
